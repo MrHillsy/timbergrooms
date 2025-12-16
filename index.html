@@ -18,6 +18,14 @@
         /* Slide down for mobile menu */
         .menu-slide-down { animation: slideDown 320ms cubic-bezier(.2,.8,.2,1) both; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-6px) } to { opacity: 1; transform: translateY(0) } }
+        /* 3D Image Effects */
+        .perspective-3d { perspective: 1000px; }
+        .image-3d { transform-style: preserve-3d; animation: float3d 6s ease-in-out infinite; }
+        @keyframes float3d {
+            0%, 100% { transform: rotateX(5deg) rotateY(-8deg) rotateZ(3deg) translateY(0px); }
+            50% { transform: rotateX(-5deg) rotateY(8deg) rotateZ(-3deg) translateY(-12px); }
+        }
+        .image-3d:hover { animation: none; transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1.02); }
     </style>
    
 </head>
@@ -123,8 +131,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- The Ogee Fade -->
                 <div class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal">
-                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-600 transition">
-                        <img src="assets/ogee_fade.jpg" alt="The Ogee Fade" class="w-6 h-6 object-contain transition group-hover:scale-110" />
+                    <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
+                        <img src="assets/ogee_fade.jpeg" alt="The Ogee Fade" class="w-full h-full object-cover transition group-hover:scale-105" />
                     </div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">The Ogee Fade</h3>
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">My signature cut. Clean fade with precision line-up and optional design.</p>
@@ -136,8 +144,8 @@
 
                 <!-- Burst Fade Mohawk -->
                 <div class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal">
-                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-600 transition">
-                        <img src="assets/mohawk.jpg" alt="Burst Fade Mohawk" class="w-6 h-6 object-contain transition group-hover:scale-110" />
+                    <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
+                        <img src="assets/mohawk.jpeg" alt="Burst Fade Mohawk" class="w-full h-full object-cover transition group-hover:scale-105" />
                     </div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Burst Fade Mohawk</h3>
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">Trending street style. Bold burst fade with a sharp mohawk.</p>
@@ -149,8 +157,8 @@
 
                 <!-- Twist Sponge Top -->
                 <div class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal">
-                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-600 transition">
-                        <img src="assets/twists.jpg" alt="Twist Sponge / High Top" class="w-6 h-6 object-contain transition group-hover:scale-110" />
+                    <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
+                        <img src="assets/twist.jpeg" alt="Twist Sponge / High Top" class="w-full h-full object-cover transition group-hover:scale-105" />
                     </div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Twist Sponge / High Top</h3>
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">Classic afro-textured style with clean sides and defined shape.</p>
@@ -162,8 +170,8 @@
 
                 <!-- Shadow Fade -->
                 <div class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal">
-                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-600 transition">
-                        <img src="assets/waves.jpg" alt="Shadow Fade with Waves" class="w-6 h-6 object-contain transition group-hover:scale-110" />
+                    <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
+                        <img src="assets/waves.jpeg" alt="Shadow Fade with Waves" class="w-full h-full object-cover transition group-hover:scale-105" />
                     </div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Shadow Fade with Waves</h3>
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">Smooth blend perfection that enhances your wave pattern.</p>
@@ -175,8 +183,8 @@
 
                 <!-- Low Taper -->
                 <div class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal">
-                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-600 transition">
-                        <img src="assets/taper.jpg" alt="Low Taper Curly Look" class="w-6 h-6 object-contain transition group-hover:scale-110" />
+                    <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
+                        <img src="assets/taper.jpeg" alt="Low Taper Curly Look" class="w-full h-full object-cover transition group-hover:scale-105" />
                     </div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Low Taper Curly Look</h3>
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">Professional and stylish with natural-looking curls.</p>
@@ -188,8 +196,8 @@
 
                 <!-- Dread Retouch -->
                 <div class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal">
-                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-600 transition">
-                        <img src="assets/dreads.jpg" alt="Dread Retouch" class="w-6 h-6 object-contain transition group-hover:scale-110" />
+                    <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
+                        <img src="assets/dreads.jpeg" alt="Dread Retouch" class="w-full h-full object-cover transition group-hover:scale-105" />
                     </div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Dread Retouch + Fade</h3>
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">Expert retouch with clean fade to keep your locs sharp.</p>
@@ -201,8 +209,8 @@
 
                 <!-- Beard Grooming -->
                 <div class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer md:col-span-2 lg:col-span-1 reveal">
-                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-600 transition">
-                        <img src="assets/beard.jpg" alt="Beard Art & Shaping" class="w-6 h-6 object-contain transition group-hover:scale-110" />
+                    <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
+                        <img src="assets/beards.jpeg" alt="Beard Art & Shaping" class="w-full h-full object-cover transition group-hover:scale-105" />
                     </div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Beard Art & Shaping</h3>
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">Precision sculpting, line-ups, and artistic facial hair designs.</p>
@@ -222,82 +230,201 @@
         </div>
     </section>
 
-    <!-- Style Quiz Section -->
-    <section class="py-16 px-4 sm:px-6">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Find Your Perfect Style</h2>
-                <p class="text-lg text-slate-600">Not sure which cut suits you? Take our quick quiz!</p>
+   <section class="py-16 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Find Your Perfect Style</h2>
+            <p class="text-lg text-slate-600">Not sure which cut suits you? Take our quick quiz!</p>
+        </div>
+        
+        <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-200 transition-all duration-300" id="mainCard">
+            <div id="quizContainer">
+                <div id="question" class="text-xl md:text-2xl font-semibold text-slate-900 mb-8 text-center">What's your vibe?</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button onclick="startResult('professional')" class="p-6 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-600 rounded-2xl transition font-medium border-2 border-slate-200 text-left group quiz-btn">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center group-hover:bg-emerald-600 transition shadow-sm">
+                                <span class="text-2xl">💼</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-slate-900">Professional</div>
+                                <div class="text-sm text-slate-600">Clean & polished</div>
+                            </div>
+                        </div>
+                    </button>
+
+                    <button onclick="startResult('street')" class="p-6 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-600 rounded-2xl transition font-medium border-2 border-slate-200 text-left group quiz-btn">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center group-hover:bg-emerald-600 transition shadow-sm">
+                                <span class="text-2xl">🔥</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-slate-900">Street Style</div>
+                                <div class="text-sm text-slate-600">Bold & trendy</div>
+                            </div>
+                        </div>
+                    </button>
+
+                    <button onclick="startResult('natural')" class="p-6 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-600 rounded-2xl transition font-medium border-2 border-slate-200 text-left group quiz-btn">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center group-hover:bg-emerald-600 transition shadow-sm">
+                                <span class="text-2xl">🌀</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-slate-900">Natural</div>
+                                <div class="text-sm text-slate-600">Textured & authentic</div>
+                            </div>
+                        </div>
+                    </button>
+
+                    <button onclick="startResult('creative')" class="p-6 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-600 rounded-2xl transition font-medium border-2 border-slate-200 text-left group quiz-btn">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center group-hover:bg-emerald-600 transition shadow-sm">
+                                <span class="text-2xl">🎨</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-slate-900">Creative</div>
+                                <div class="text-sm text-slate-600">Artistic & unique</div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
             </div>
-            
-            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-200">
-                <div id="quizContainer">
-                    <div id="question" class="text-xl md:text-2xl font-semibold text-slate-900 mb-8 text-center">What's your vibe?</div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <button onclick="showQuizResult('professional')" class="p-6 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-600 rounded-2xl transition font-medium border-2 border-slate-200 text-left group quiz-btn reveal">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center group-hover:bg-emerald-600 transition">
-                                    <span class="text-2xl">💼</span>
-                                </div>
-                                <div>
-                                    <div class="font-semibold text-slate-900">Professional</div>
-                                    <div class="text-sm text-slate-600">Clean & polished</div>
-                                </div>
-                            </div>
-                        </button>
-                        <button onclick="showQuizResult('street')" class="p-6 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-600 rounded-2xl transition font-medium border-2 border-slate-200 text-left group quiz-btn reveal">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center group-hover:bg-emerald-600 transition">
-                                    <span class="text-2xl">🔥</span>
-                                </div>
-                                <div>
-                                    <div class="font-semibold text-slate-900">Street Style</div>
-                                    <div class="text-sm text-slate-600">Bold & trendy</div>
-                                </div>
-                            </div>
-                        </button>
-                        <button onclick="showQuizResult('natural')" class="p-6 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-600 rounded-2xl transition font-medium border-2 border-slate-200 text-left group quiz-btn reveal">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center group-hover:bg-emerald-600 transition">
-                                    <span class="text-2xl">🌀</span>
-                                </div>
-                                <div>
-                                    <div class="font-semibold text-slate-900">Natural</div>
-                                    <div class="text-sm text-slate-600">Textured & authentic</div>
-                                </div>
-                            </div>
-                        </button>
-                        <button onclick="showQuizResult('creative')" class="p-6 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-600 rounded-2xl transition font-medium border-2 border-slate-200 text-left group quiz-btn reveal">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center group-hover:bg-emerald-600 transition">
-                                    <span class="text-2xl">🎨</span>
-                                </div>
-                                <div>
-                                    <div class="font-semibold text-slate-900">Creative</div>
-                                    <div class="text-sm text-slate-600">Artistic & unique</div>
-                                </div>
-                            </div>
-                        </button>
-                    </div>
+
+            <div id="quizResult" class="hidden text-center fade-in">
+                <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce-slow">
+                    <span class="text-4xl" id="resultEmoji">✨</span>
                 </div>
-                <div id="quizResult" class="hidden text-center">
-                    <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <span class="text-4xl">✨</span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-2">Your Perfect Cut</h3>
-                    <p id="resultText" class="text-lg text-slate-600 mb-8"></p>
-                    <div class="flex gap-4 justify-center">
-                        <button onclick="resetQuiz()" class="px-6 py-3 bg-slate-100 text-slate-700 font-semibold rounded-full hover:bg-slate-200 transition">
-                            Try Again
-                        </button>
-                        <button onclick="scrollToBooking()" class="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-full hover:bg-emerald-700 transition">
-                            Book This Style
-                        </button>
-                    </div>
+                <h3 class="text-lg font-medium text-emerald-600 mb-2 uppercase tracking-wide" id="styleCategoryName">Your Style</h3>
+                
+                <h2 id="resultTitle" class="text-3xl font-bold text-slate-900 mb-4 min-h-[40px]">Thinking...</h2>
+                
+                <p id="resultDesc" class="text-lg text-slate-600 mb-8 max-w-lg mx-auto">Great choice! This style balances specific features with a modern aesthetic.</p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button onclick="rerollStyle()" class="w-full sm:w-auto px-6 py-3 bg-slate-100 text-slate-700 font-semibold rounded-full hover:bg-slate-200 hover:shadow-md transition flex items-center justify-center gap-2 group">
+                        <span>🔄</span> Show Another
+                    </button>
+                    
+                    <button onclick="scrollToBooking()" class="w-full sm:w-auto px-6 py-3 bg-emerald-600 text-white font-semibold rounded-full hover:bg-emerald-700 hover:shadow-lg hover:-translate-y-0.5 transition">
+                        Book This Style
+                    </button>
                 </div>
+                
+                <button onclick="resetToMenu()" class="mt-6 text-sm text-slate-400 hover:text-slate-600 underline decoration-slate-300">
+                    Start Over
+                </button>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+    // 1. DATA: The database of hairstyles
+    const styleDatabase = {
+        professional: {
+            emoji: "💼",
+            styles: [
+                { name: "The Executive Contour", desc: "A timeless classic. Tight sides with a longer top, combed to the side for a sharp boardroom look." },
+                { name: "Ivy League Cut", desc: "Smart and preppy. Short enough to be low maintenance, long enough to style with a bit of pomade." },
+                { name: "Taper Fade", desc: "Modern business. Clean gradient on the sides keeps it fresh while remaining office-appropriate." },
+                { name: "Classic Side Part", desc: "The ultimate gentleman's cut. defined part line with a matte finish for sophistication." }
+            ]
+        },
+        street: {
+            emoji: "🔥",
+            styles: [
+                { name: "Textured Crop", desc: "Short, choppy, and effortlessly cool. Great for adding volume to thinner hair." },
+                { name: "Modern Mullet", desc: "Business in the front, party in the back. The ultimate statement piece for the bold." },
+                { name: "Buzz Cut with Line Design", desc: "Minimalist maintenance with maximum impact. Add a geometric line for extra edge." },
+                { name: "Burst Fade Mohawk", desc: "Aggressive and stylish. A wide mohawk that fades around the ears for a striking silhouette." }
+            ]
+        },
+        natural: {
+            emoji: "🌀",
+            styles: [
+                { name: "Mid-Taper Afro", desc: "Let your texture shine. Kept neat around the ears/neck but full volume on top." },
+                { name: "Twist Sponge Top", desc: "Defined curls using a sponge brush. Offers great height and distinct texture separation." },
+                { name: "Short Locs", desc: "The start of a journey. clean parts and uniform length for a neat, authentic look." },
+                { name: "Cornrows with Fade", desc: "Protective and sharp. Intricate braiding on top meeting a clean skin fade on the sides." }
+            ]
+        },
+        creative: {
+            emoji: "🎨",
+            styles: [
+                { name: "Asymmetrical Undercut", desc: "Disconnect your style. Shaved tight on one side, long and flowing on the other." },
+                { name: "The Pompadour", desc: "Vintage rockabilly vibes with a modern twist. High volume and lots of attitude." },
+                { name: "Faux Hawk", desc: "Rebellious but manageable. All the edge of a mohawk without the commitment of shaving the sides completely." },
+                { name: "Geometric Crop", desc: "Sharp angles and blunt bangs. A high-fashion look that frames the face perfectly." }
+            ]
+        }
+    };
+
+    // 2. STATE: Track what the user is currently looking at
+    let currentCategory = '';
+    let currentStyleIndex = -1;
+
+    // 3. LOGIC: Initialize the result view
+    function startResult(category) {
+        currentCategory = category;
+        
+        // Hide Quiz, Show Result
+        document.getElementById('quizContainer').classList.add('hidden');
+        document.getElementById('quizResult').classList.remove('hidden');
+        
+        // Set the category emoji and name immediately
+        document.getElementById('resultEmoji').innerText = styleDatabase[category].emoji;
+        document.getElementById('styleCategoryName').innerText = category + " Selections";
+        
+        // Generate the first random style
+        rerollStyle();
+    }
+
+    // 4. LOGIC: The "Spice" - Randomizer
+    function rerollStyle() {
+        const categoryData = styleDatabase[currentCategory];
+        const stylesList = categoryData.styles;
+        
+        // Algorithm: Pick a random index, but make sure it isn't the same as the last one
+        // (Unless there's only 1 item in the list)
+        let newIndex;
+        do {
+            newIndex = Math.floor(Math.random() * stylesList.length);
+        } while (newIndex === currentStyleIndex && stylesList.length > 1);
+        
+        // Update State
+        currentStyleIndex = newIndex;
+        const selectedStyle = stylesList[newIndex];
+
+        // Update DOM with animation effect
+        const titleEl = document.getElementById('resultTitle');
+        const descEl = document.getElementById('resultDesc');
+
+        // Simple fade effect
+        titleEl.style.opacity = '0';
+        descEl.style.opacity = '0';
+
+        setTimeout(() => {
+            titleEl.innerText = selectedStyle.name;
+            descEl.innerText = selectedStyle.desc;
+            titleEl.style.opacity = '1';
+            descEl.style.opacity = '1';
+        }, 150);
+    }
+
+    // 5. LOGIC: Go back to main menu
+    function resetToMenu() {
+        document.getElementById('quizResult').classList.add('hidden');
+        document.getElementById('quizContainer').classList.remove('hidden');
+        currentCategory = '';
+        currentStyleIndex = -1;
+    }
+
+    // Placeholder for booking
+    function scrollToBooking() {
+        alert("Redirecting to booking system for: " + document.getElementById('resultTitle').innerText);
+    }
+</script>
 
     <!-- Gallery Section -->
     <section id="gallery" class="py-16 px-4 sm:px-6 bg-slate-50">
@@ -406,13 +533,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="relative">
-                    <div class="aspect-square rounded-3xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white shadow-2xl">
-                        <div class="text-center">
-                            <div class="text-8xl mb-4">💈</div>
-                            <div class="text-2xl font-bold">Tools of the Trade</div>
-                        </div>
-                    </div>
+                <div class="relative perspective-3d">
+                    <img src="assets/Barbering Accessories.jpg" alt="Barbing Accessories" class="rounded-3xl object-cover w-full shadow-2xl image-3d transition-transform duration-300 hover:shadow-emerald-600/50">
                 </div>
             </div>
         </div>

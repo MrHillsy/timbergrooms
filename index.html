@@ -9,85 +9,31 @@
     <style>
         /* Prevent horizontal scroll on all devices */
         html {
-            overflow-x: hidden;
-            max-width: 100vw;
+            scroll-behavior: smooth;
         }
 
         /* Use Helvetica where available, with sane fallbacks */
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Liberation Sans', sans-serif;
-            overflow-x: hidden;
             width: 100%;
-            max-width: 100vw;
         }
 
         /* Mobile margins for better spacing */
         @media (max-width: 640px) {
             body {
-                padding-left: 16px;
-                padding-right: 16px;
-                position: relative;
+                padding-left: 0;
+                padding-right: 0;
             }
 
-            /* Animated decorative lines on sides */
-            body::before,
-            body::after {
-                content: '';
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                width: 3px;
-                background: linear-gradient(180deg,
-                        transparent 0%,
-                        #10b981 10%,
-                        #059669 50%,
-                        #10b981 90%,
-                        transparent 100%);
-                background-size: 100% 200%;
-                animation: lineFlow 4s ease-in-out infinite;
-                z-index: 1;
-                pointer-events: none;
-            }
-
-            body::before {
-                left: 4px;
-                animation-delay: 0s;
-            }
-
-            body::after {
-                right: 4px;
-                animation-delay: 2s;
-                /* Offset for alternating effect */
-            }
-
-            @keyframes lineFlow {
-
-                0%,
-                100% {
-                    background-position: 0% 0%;
-                    opacity: 0.6;
-                }
-
-                50% {
-                    background-position: 0% 100%;
-                    opacity: 0.9;
-                }
-            }
-
-            /* Compensate for sections that already have padding */
-            section {
-                margin-left: -16px;
-                margin-right: -16px;
+            /* Add padding to sections except hero */
+            section:not(#home) {
                 padding-left: 16px;
                 padding-right: 16px;
             }
 
             /* Keep nav full width */
             nav {
-                margin-left: -16px;
-                margin-right: -16px;
                 z-index: 50;
-                position: relative;
             }
         }
 
@@ -431,19 +377,20 @@
 
 </head>
 
-<body class="bg-white text-slate-900">
+<body class="text-slate-100" style="background-color: #1a1f1e;">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-slate-200 shadow-sm">
+    <nav class="sticky top-0 w-full backdrop-blur-md z-50 border-b shadow-sm"
+        style="background-color: rgba(26, 31, 30, 0.95); border-color: #374151;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold text-emerald-600">Ogee Barbershop</div>
             <ul class="hidden md:flex gap-8 text-sm font-medium items-center">
-                <li><a href="#home" class="text-slate-600 hover:text-emerald-600 transition">Home</a></li>
-                <li><a href="#services" class="text-slate-600 hover:text-emerald-600 transition">Services</a></li>
-                <li><a href="#gallery" class="text-slate-600 hover:text-emerald-600 transition">Gallery</a></li>
-                <li><a href="#about" class="text-slate-600 hover:text-emerald-600 transition">About</a></li>
+                <li><a href="#home" class="text-slate-300 hover:text-emerald-400 transition">Home</a></li>
+                <li><a href="#services" class="text-slate-300 hover:text-emerald-400 transition">Services</a></li>
+                <li><a href="#gallery" class="text-slate-300 hover:text-emerald-400 transition">Gallery</a></li>
+                <li><a href="#about" class="text-slate-300 hover:text-emerald-400 transition">About</a></li>
                 <li>
                     <a href="https://instagram.com/ogee_barbershop" target="_blank" rel="noopener noreferrer"
-                        class="text-slate-600 hover:text-emerald-600 transition flex items-center gap-1"
+                        class="text-slate-300 hover:text-emerald-400 transition flex items-center gap-1"
                         title="Follow us on Instagram">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -452,12 +399,19 @@
                     </a>
                 </li>
             </ul>
-            <button onclick="scrollToBooking()"
-                class="hidden md:block px-6 py-2.5 bg-emerald-600 text-white font-semibold rounded-full hover:bg-emerald-700 transition text-sm magnetic-btn">
-                Book Now
-            </button>
+            <div class="hidden md:flex items-center gap-3">
+                <!-- Live Status Badge -->
+                <div class="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span class="text-xs font-medium text-slate-700" id="navStatus">Open</span>
+                </div>
+                <button onclick="scrollToBooking()"
+                    class="px-6 py-2.5 bg-emerald-600 text-white font-semibold rounded-full hover:bg-emerald-700 transition text-sm magnetic-btn">
+                    Book Now
+                </button>
+            </div>
             <button id="mobileMenuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle menu"
-                class="md:hidden text-slate-600" onclick="toggleMenu()">
+                class="md:hidden text-slate-300" onclick="toggleMenu()">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
                     </path>
@@ -466,23 +420,29 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-slate-200" role="menu" aria-hidden="true">
+        <div id="mobileMenu" class="hidden md:hidden border-t" role="menu" aria-hidden="true"
+            style="background-color: #1a1f1e; border-color: #374151;">
             <ul class="flex flex-col">
                 <li><a href="#home" onclick="toggleMenu()"
-                        class="block px-6 py-4 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 transition border-b border-slate-100">Home</a>
+                        class="block px-6 py-4 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-b"
+                        style="border-color: #374151;">Home</a>
                 </li>
                 <li><a href="#services" onclick="toggleMenu()"
-                        class="block px-6 py-4 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 transition border-b border-slate-100">Services</a>
+                        class="block px-6 py-4 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-b"
+                        style="border-color: #374151;">Services</a>
                 </li>
                 <li><a href="#gallery" onclick="toggleMenu()"
-                        class="block px-6 py-4 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 transition border-b border-slate-100">Gallery</a>
+                        class="block px-6 py-4 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-b"
+                        style="border-color: #374151;">Gallery</a>
                 </li>
                 <li><a href="#about" onclick="toggleMenu()"
-                        class="block px-6 py-4 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 transition border-b border-slate-100">About</a>
+                        class="block px-6 py-4 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-b"
+                        style="border-color: #374151;">About</a>
                 </li>
                 <li>
                     <a href="https://instagram.com/ogee_barbershop" target="_blank" rel="noopener noreferrer"
-                        class="block px-6 py-4 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 transition border-b border-slate-100 flex items-center gap-2">
+                        class="block px-6 py-4 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-b flex items-center gap-2"
+                        style="border-color: #374151;">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path
                                 d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
@@ -497,87 +457,57 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-12 md:pt-32 md:pb-20 px-4 sm:px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="order-2 lg:order-1 reveal">
-                    <div
-                        class="inline-block px-4 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium mb-6 pulse-badge">
-                        Lagos Premier Barbershop
-                    </div>
-                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                        <span class="gradient-text">Where Fresh Cuts Meet Modern Style</span>
-                    </h1>
-                    <p class="text-base sm:text-lg text-slate-600 mb-8 leading-relaxed">
-                        Experience precision cutting, expert fades, and personalized grooming services that elevate your
-                        look and confidence.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 reveal">
-                        <button onclick="scrollToBooking()"
-                            class="px-8 py-4 bg-emerald-600 text-white font-semibold rounded-full hover:bg-emerald-700 transition shadow-lg shadow-emerald-600/30 magnetic-btn glow-on-hover">
-                            Book Appointment
-                        </button>
-                        <button onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})"
-                            class="px-8 py-4 bg-white text-slate-700 font-semibold rounded-full border-2 border-slate-200 hover:border-emerald-600 hover:text-emerald-600 transition magnetic-btn hover-lift">
-                            View Services
-                        </button>
-                    </div>
-                    <div class="mt-12 grid grid-cols-3 gap-8">
-                        <div>
-                            <div class="text-3xl font-bold text-emerald-600"><span class="stat"
-                                    data-target="500">0</span>+</div>
-                            <div class="text-sm text-slate-600">Happy Clients</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-bold text-emerald-600"><span class="stat"
-                                    data-target="5">0</span>+</div>
-                            <div class="text-sm text-slate-600">Years Experience</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-bold text-emerald-600">4.9</div>
-                            <div class="text-sm text-slate-600">Client Rating</div>
-                        </div>
-                    </div>
+    <!-- Hero Section - SF Barber Style -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="og.jpg" alt="Ogee Barbershop" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/60"></div>
+        </div>
+
+        <!-- Centered Content -->
+        <div class="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto">
+            <!-- Main Heading -->
+            <h1 class="font-bold text-white mb-6 sm:mb-8 leading-none tracking-tight">
+                <div class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl mb-1 sm:mb-2"
+                    style="text-shadow: 2px 4px 8px rgba(0,0,0,0.5);">
+                    OGEE
                 </div>
-                <div class="order-1 lg:order-2 reveal">
-                    <div class="relative">
-                        <div class="aspect-square rounded-3xl overflow-hidden shadow-2xl bg-slate-900">
-                            <!-- 7-second looping video -->
-                            <video autoplay loop muted playsinline class="w-full h-full object-cover" poster="og.jpg">
-                                <source src="assets/hero-video.mp4" type="video/mp4">
-                                <source src="assets/hero-video.webm" type="video/webm">
-                                <!-- Fallback image if video doesn't load -->
-                                <img src="og.jpg" alt="Ogee Barbershop" class="w-full h-full object-cover">
-                            </video>
-                        </div>
-                        <div
-                            class="absolute -bottom-6 -right-6 w-32 h-32 bg-white rounded-2xl shadow-xl flex items-center justify-center">
-                            <div class="text-center">
-                                <div class="text-emerald-600 font-bold text-xl" id="shopStatus">Open</div>
-                                <div class="text-slate-600 text-xs">Mon-Sat</div>
-                                <div class="text-slate-600 text-xs">9AM-8PM</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl"
+                    style="text-shadow: 2px 4px 8px rgba(0,0,0,0.5);">
+                    BARBERSHOP
                 </div>
-            </div>
+            </h1>
+
+            <!-- CTA Button -->
+            <button onclick="scrollToBooking()"
+                class="px-8 py-4 sm:px-10 sm:py-5 bg-emerald-600 text-white font-bold text-base sm:text-lg rounded-full hover:bg-emerald-700 transition-all duration-300 shadow-2xl hover:shadow-emerald-600/50 hover:scale-105 magnetic-btn glow-on-hover">
+                BOOK APPOINTMENT
+            </button>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="hidden sm:block absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+            <svg class="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-16 px-4 sm:px-6 bg-slate-50">
+    <section id="services" class="py-12 sm:py-16 px-4 sm:px-6" style="background-color: #f5f1e8;">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Signature Services</h2>
-                <p class="text-lg text-slate-600 max-w-2xl mx-auto">Expert cuts and grooming tailored to your unique
-                    style</p>
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="color: #1a1f1e;">Signature Services</h2>
+                <p class="text-lg max-w-2xl mx-auto" style="color: #374151;">Expert cuts and grooming tailored to your
+                    unique style</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- The Ogee Fade -->
-                <div
-                    class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal card-3d shimmer">
+                <div class="rounded-2xl p-6 hover:shadow-xl transition border border-slate-300 group cursor-pointer reveal card-3d shimmer"
+                    style="background-color: #faf8f3; mix-blend-mode: multiply;">
                     <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
                         <img src="assets/ogee_fade.jpeg" alt="The Ogee Fade"
                             class="w-full h-full object-cover transition group-hover:scale-105 ken-burns" />
@@ -586,14 +516,14 @@
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">My signature cut. Clean fade with precision
                         line-up and optional design.</p>
                     <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-emerald-600">₦3,000</span>
+                        <span class="text-2xl font-bold" style="color: #3b82f6;">₦3,000</span>
                         <span class="text-sm text-slate-500">45 min</span>
                     </div>
                 </div>
 
                 <!-- Burst Fade Mohawk -->
-                <div
-                    class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal card-3d shimmer">
+                <div class="rounded-2xl p-6 hover:shadow-xl transition border border-slate-300 group cursor-pointer reveal card-3d shimmer"
+                    style="background-color: #faf8f3; mix-blend-mode: multiply;">
                     <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
                         <img src="assets/mohawk.jpeg" alt="Burst Fade Mohawk"
                             class="w-full h-full object-cover transition group-hover:scale-105 ken-burns" />
@@ -602,14 +532,14 @@
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">Trending street style. Bold burst fade with a
                         sharp mohawk.</p>
                     <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-emerald-600">₦3,500</span>
+                        <span class="text-2xl font-bold" style="color: #8b5cf6;">₦3,500</span>
                         <span class="text-sm text-slate-500">50 min</span>
                     </div>
                 </div>
 
                 <!-- Twist Sponge Top -->
-                <div
-                    class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal card-3d shimmer">
+                <div class="rounded-2xl p-6 hover:shadow-xl transition border border-slate-300 group cursor-pointer reveal card-3d shimmer"
+                    style="background-color: #faf8f3; mix-blend-mode: multiply;">
                     <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
                         <img src="assets/twist.jpeg" alt="Twist Sponge / High Top"
                             class="w-full h-full object-cover transition group-hover:scale-105 ken-burns" />
@@ -618,14 +548,14 @@
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">Classic afro-textured style with clean sides
                         and defined shape.</p>
                     <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-emerald-600">₦3,000</span>
+                        <span class="text-2xl font-bold" style="color: #3b82f6;">₦3,000</span>
                         <span class="text-sm text-slate-500">45 min</span>
                     </div>
                 </div>
 
                 <!-- Shadow Fade -->
-                <div
-                    class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal card-3d shimmer">
+                <div class="rounded-2xl p-6 hover:shadow-xl transition border border-slate-300 group cursor-pointer reveal card-3d shimmer"
+                    style="background-color: #faf8f3; mix-blend-mode: multiply;">
                     <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
                         <img src="assets/waves.jpeg" alt="Shadow Fade with Waves"
                             class="w-full h-full object-cover transition group-hover:scale-105 ken-burns" />
@@ -634,14 +564,14 @@
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">Smooth blend perfection that enhances your
                         wave pattern.</p>
                     <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-emerald-600">₦2,800</span>
+                        <span class="text-2xl font-bold" style="color: #14b8a6;">₦2,800</span>
                         <span class="text-sm text-slate-500">40 min</span>
                     </div>
                 </div>
 
                 <!-- Low Taper -->
-                <div
-                    class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal card-3d shimmer">
+                <div class="rounded-2xl p-6 hover:shadow-xl transition border border-slate-300 group cursor-pointer reveal card-3d shimmer"
+                    style="background-color: #faf8f3; mix-blend-mode: multiply;">
                     <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
                         <img src="assets/taper.jpeg" alt="Low Taper Curly Look"
                             class="w-full h-full object-cover transition group-hover:scale-105 ken-burns" />
@@ -650,14 +580,14 @@
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">Professional and stylish with natural-looking
                         curls.</p>
                     <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-emerald-600">₦2,500</span>
+                        <span class="text-2xl font-bold" style="color: #14b8a6;">₦2,500</span>
                         <span class="text-sm text-slate-500">40 min</span>
                     </div>
                 </div>
 
                 <!-- Dread Retouch -->
-                <div
-                    class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer reveal card-3d shimmer">
+                <div class="rounded-2xl p-6 hover:shadow-xl transition border border-slate-300 group cursor-pointer reveal card-3d shimmer"
+                    style="background-color: #faf8f3; mix-blend-mode: multiply;">
                     <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
                         <img src="assets/dreads.jpeg" alt="Dread Retouch"
                             class="w-full h-full object-cover transition group-hover:scale-105 ken-burns" />
@@ -666,14 +596,14 @@
                     <p class="text-slate-600 mb-4 text-sm leading-relaxed">Expert retouch with clean fade to keep your
                         locs sharp.</p>
                     <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-emerald-600">₦4,000</span>
+                        <span class="text-2xl font-bold" style="color: #f59e0b;">₦4,000</span>
                         <span class="text-sm text-slate-500">60 min</span>
                     </div>
                 </div>
 
                 <!-- Beard Grooming -->
-                <div
-                    class="bg-white rounded-2xl p-6 hover:shadow-xl transition border border-slate-200 group cursor-pointer md:col-span-2 lg:col-span-1 reveal card-3d shimmer">
+                <div class="rounded-2xl p-6 hover:shadow-xl transition border border-slate-300 group cursor-pointer md:col-span-2 lg:col-span-1 reveal card-3d shimmer"
+                    style="background-color: #faf8f3; mix-blend-mode: multiply;">
                     <div class="w-full h-40 bg-slate-200 rounded-xl overflow-hidden mb-4">
                         <img src="assets/beards.jpeg" alt="Beard Art & Shaping"
                             class="w-full h-full object-cover transition group-hover:scale-105 ken-burns" />
@@ -698,18 +628,20 @@
         </div>
     </section>
 
-    <section class="py-16 px-4 sm:px-6">
+    <!-- Quiz Section -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mb-4">Find Your Perfect Style</h2>
-                <p class="text-sm sm:text-lg text-slate-600">Not sure which cut suits you? Take our quick quiz!</p>
+                <h2 class="text-2xl sm:text-4xl font-bold mb-4 text-white">Find Your Perfect Style</h2>
+                <p class="text-sm sm:text-lg text-slate-300">Not sure which cut suits you? Take our quick quiz!
+                </p>
             </div>
 
-            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-200 transition-all duration-300"
-                id="mainCard">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-700 transition-all duration-300"
+                style="background-color: #242928;" id="mainCard">
                 <div id="quizContainer">
-                    <div id="question" class="text-xl md:text-2xl font-semibold text-slate-900 mb-8 text-center">What's
-                        your vibe?</div>
+                    <div id="question" class="text-xl md:text-2xl font-semibold text-white mb-8 text-center">What's your
+                        vibe?</div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <button onclick="startResult('professional')"
                             class="p-6 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-600 rounded-2xl transition font-medium border-2 border-slate-200 text-left group quiz-btn hover-lift card-3d">
@@ -911,14 +843,14 @@
     </script>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="py-16 px-4 sm:px-6 bg-slate-50">
+    <section id="gallery" class="py-12 sm:py-16 px-4 sm:px-6" style="background-color: #1a1f1e;">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mb-4">Our Work</h2>
-                <p class="text-sm sm:text-lg text-slate-600">Before & after transformations</p>
+                <h2 class="text-2xl sm:text-4xl font-bold text-white mb-4">Our Work</h2>
+                <p class="text-sm sm:text-lg text-slate-300">Before & after transformations</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 <div class="relative group overflow-hidden rounded-2xl aspect-square bg-slate-200 gallery-item reveal cursor-pointer"
                     data-img="og.jpg" data-caption="Our work" tabindex="0">
                     <div
@@ -984,12 +916,12 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 px-4 sm:px-6">
+    <section id="about" class="py-12 sm:py-16 px-4 sm:px-6" style="background-color: #1a1f1e;">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">Why Choose Ogee Barbershop?</h2>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                    <h2 class="text-2xl sm:text-4xl font-bold text-white mb-6">Why Choose Ogee Barbershop?</h2>
+                    <p class="text-base sm:text-lg mb-8 leading-relaxed" style="color: #d1fae5;">
                         With over 5 years of experience and 500+ satisfied clients, I've mastered the art of precision
                         cutting and personalized grooming. Every client gets my full attention and a cut tailored to
                         their unique style.
@@ -1052,14 +984,15 @@
     </section>
 
     <!-- Booking Section -->
-    <section id="booking" class="py-16 px-4 sm:px-6 bg-slate-50">
+    <section id="booking" class="py-12 sm:py-16 px-4 sm:px-6" style="background-color: #e8f3e6;">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mb-4">Book Your Appointment</h2>
-                <p class="text-sm sm:text-lg text-slate-600">Quick and easy booking via WhatsApp</p>
+                <h2 class="text-2xl sm:text-4xl font-bold mb-4" style="color: #047857;">Book Your Appointment</h2>
+                <p class="text-sm sm:text-lg" style="color: #1f2937;">Quick and easy booking via WhatsApp</p>
             </div>
 
-            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-200">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-700"
+                style="background-color: #242928;">
                 <div class="space-y-4">
                     <a href="https://wa.me/2348054374901?text=Hi%20Ogee%2C%20I%20want%20to%20book%20a%20haircut%21"
                         target="_blank" rel="noopener noreferrer"
@@ -1203,11 +1136,11 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="py-16 px-4 sm:px-6">
+    <section class="py-12 sm:py-16 px-4 sm:px-6" style="background-color: #1a1f1e;">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mb-4">Client Reviews</h2>
-                <p class="text-sm sm:text-lg text-slate-600">What our clients say about us</p>
+                <h2 class="text-2xl sm:text-4xl font-bold text-white mb-4">Client Reviews</h2>
+                <p class="text-sm sm:text-lg text-slate-300">What our clients say about us</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1795,6 +1728,7 @@
 
                 // Update status badge
                 const statusBadge = document.getElementById('liveStatus');
+                const navStatus = document.getElementById('navStatus');
                 const heroStatus = document.getElementById('shopStatus');
 
                 if (statusBadge) {
@@ -1805,6 +1739,12 @@
                         statusBadge.textContent = '🔴 Closed';
                         statusBadge.className = 'ml-auto px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700';
                     }
+                }
+
+                // Update nav status
+                if (navStatus) {
+                    navStatus.textContent = isOpen ? 'Open' : 'Closed';
+                    navStatus.className = isOpen ? 'text-xs font-medium text-emerald-700' : 'text-xs font-medium text-red-700';
                 }
 
                 // Update hero status
